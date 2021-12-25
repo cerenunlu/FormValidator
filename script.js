@@ -15,18 +15,20 @@ function error(input, message) {
 function success(input) {
     input.className = 'form-control is-valid';
 }
-function validateEmail(email) {
-    return String(email)
-        .toLowerCase()
-        .match(
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        );
+function checkEmail(input) {
+    const re=  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+   if(re.test(input.value)){
+       success(input);
+   }else{
+       error(input,'wrong email');
+   }
+    
 };
 
 function checkRequired(inputs) {
     inputs.forEach(function (input) {
         if (input.value === '') {
-            error(input, 'necessary')
+            error(input, `${input.id} is required `)
         }
     })
 
@@ -36,6 +38,7 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
 
     checkRequired([username, email, password, repassword]);
+    checkEmail(email);
 
 
 });
