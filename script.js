@@ -33,12 +33,36 @@ function checkRequired(inputs) {
     })
 
 }
+function checkLenght(input,min,max){
+    
+    if(input.value.length<min){
+        error(input,`${input.id} must be at least ${min} character`);
+    }else if (input.value.length>max){
+         error(input,`${input.id} must be a maximum of ${max} characters`);
+    }else{
+        success(input);
+    }
+}
+function checkPasswords(input1,input2){
+    if(input1.value!==input2.value){
+        error(input2,`Passwords must be same`);
+    }
+}
+function checkPhone(input){
+    var exp=/^\d{10}$/;
+    if(!exp.test(input.value)){
+        error(input,'Number must be 10 characters');
+    }
+}
 
 form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    checkRequired([username, email, password, repassword]);
+    checkRequired([username, email, password, repassword,phone]);
     checkEmail(email);
+    checkLenght(password,6,15);
+    checkPasswords(password,repassword);
+    checkPhone(phone);
 
 
 });
