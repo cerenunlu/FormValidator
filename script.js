@@ -20,7 +20,7 @@ function checkEmail(input) {
    if(re.test(input.value)){
        success(input);
    }else{
-       error(input,'wrong email');
+       error(input,'must be email format');
    }
     
 };
